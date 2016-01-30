@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>打字游戏</title>
+    <link rel="stylesheet" href="css/game.css">
+    <script src="js/animate.js"></script>
+    <script src="js/game.js"></script>
+
+
+    <script>
+        window.onload=function(){
+            var startbox=document.getElementsByClassName("start")[0];
+            var start=document.getElementById("start");
+            var input=document.getElementsByTagName("input")[0];
+            start.onclick= function () {
+                animate(startbox,{opacity:0},500,function(){
+                    startbox.style.display="none";
+                });
+                var newstep=input.value;
+                var obj=new game();
+                obj.step=newstep;
+                var stepSpan=document.getElementById("stepbox");
+                stepSpan.innerHTML=newstep;
+                obj.stepNum=(newstep-1)*5+10;
+                obj.speed=(newstep-1)+5;
+                if(newstep>11){
+                    newstep=11;
+                }
+                obj.letterLength=(newstep-1)+4;
+                setTimeout(function(){
+                    obj.play();
+                },2000)
+            }
+            var games=new game();
+//            games.play();
+        }
+    </script>
+</head>
+<body>
+<div class="box">
+    <div class="start">
+
+        <div class="select">
+            <span>想挑战吗？</span>
+            <span>快来挑战吧！</span><input type="number" min="1" value="1">
+        </div>
+        <a href="javascript:;" id="start">开始</a>
+    </div>
+    <!-- <input type="text" class="text" value="请选择关卡数"> -->
+    <div class="message">
+            <div>
+                <div class="fenshu">分数:</div>
+                <span>0</span>
+            </div>
+            <div>
+                <div class="shengming">生命:</div>
+                <span id="shengming">10</span>
+            </div>
+            <div>
+                <div class="guanka">关卡:</div>
+                <span id="stepbox">1</span>
+            </div>
+            <div>
+                <div class="xuanze">请选择：</div>
+            </div>
+    </div>
+    <div class="next">
+        <div class="mes">
+            恭喜你进入: 第&nbsp;<span id="step"></span>&nbsp;关<br><br>
+            难度会加大哦！<br>会增加到: <span id="difficult"></span>个哦！
+        </div>
+        <a href="javascript:;" id="go">开始</a>
+        <a href="javascript:;" class="close">X</a>
+    </div>
+    <div class="fail">
+        <div class="score">
+            <p>很不幸</p>
+            <p class="p">您的最终得分为:</p>
+            <div id="score"></div>
+        </div>
+        <a href="javascript:;" id="again">重新玩</a>
+    </div>
+</div>
+</body>
+</html>
